@@ -5,112 +5,113 @@ from .models import Dish, DishType, Cook
 from .forms import DishForm, DishTypeForm, CookCreationForm
 from decimal import Decimal
 
+
 class ModelTests(TestCase):
     def setUp(self):
         self.cook = get_user_model().objects.create_user(
-            username='testcook',
-            password='testpass123',
-            first_name='Test',
-            last_name='Cook',
-            years_of_experience=5
+            username="testcook",
+            password="testpass123",
+            first_name="Test",
+            last_name="Cook",
+            years_of_experience=5,
         )
-        self.dish_type = DishType.objects.create(name='Main Course')
+        self.dish_type = DishType.objects.create(name="Main Course")
         self.dish = Dish.objects.create(
-            name='Test Dish',
-            description='Test Description',
-            price=Decimal('9.99'),
-            dish_type=self.dish_type
+            name="Test Dish",
+            description="Test Description",
+            price=Decimal("9.99"),
+            dish_type=self.dish_type,
         )
         self.dish.cooks.add(self.cook)
 
     def test_cook_str(self):
-        self.assertEqual(str(self.cook), 'Test Cook')
+        self.assertEqual(str(self.cook), "Test Cook")
 
     def test_dish_type_str(self):
-        self.assertEqual(str(self.dish_type), 'Main Course')
+        self.assertEqual(str(self.dish_type), "Main Course")
 
     def test_dish_str(self):
-        self.assertEqual(str(self.dish), 'Test Dish')
+        self.assertEqual(str(self.dish), "Test Dish")
+
 
 class FormTests(TestCase):
     def setUp(self):
         self.cook = get_user_model().objects.create_user(
-            username='testcook',
-            password='testpass123'
+            username="testcook", password="testpass123"
         )
-        self.dish_type = DishType.objects.create(name='Main Course')
+        self.dish_type = DishType.objects.create(name="Main Course")
 
     def test_dish_form_valid(self):
         form_data = {
-            'name': 'New Dish',
-            'description': 'Description',
-            'price': '10.99',
-            'dish_type': self.dish_type.id,
-            'cooks': [self.cook.id]
+            "name": "New Dish",
+            "description": "Description",
+            "price": "10.99",
+            "dish_type": self.dish_type.id,
+            "cooks": [self.cook.id],
         }
         form = DishForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_dish_type_form_valid(self):
-        form_data = {'name': 'New Type'}
+        form_data = {"name": "New Type"}
         form = DishTypeForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_cook_creation_form_valid(self):
         form_data = {
-            'username': 'newcook',
-            'password1': 'testpass123',
-            'password2': 'testpass123',
-            'first_name': 'New',
-            'last_name': 'Cook',
-            'email': 'cook@test.com',
-            'years_of_experience': 3
+            "username": "newcook",
+            "password1": "testpass123",
+            "password2": "testpass123",
+            "first_name": "New",
+            "last_name": "Cook",
+            "email": "cook@test.com",
+            "years_of_experience": 3,
         }
         form = CookCreationForm(data=form_data)
         self.assertTrue(form.is_valid())
+
 
 class ViewTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.cook = get_user_model().objects.create_user(
-            username='testcook',
-            password='testpass123'
+            username="testcook", password="testpass123"
         )
-        self.dish_type = DishType.objects.create(name='Main Course')
+        self.dish_type = DishType.objects.create(name="Main Course")
         self.dish = Dish.objects.create(
-            name='Test Dish',
-            description='Test Description',
-            price=Decimal('9.99'),
-            dish_type=self.dish_type
+            name="Test Dish",
+            description="Test Description",
+            price=Decimal("9.99"),
+            dish_type=self.dish_type,
         )
         self.dish.cooks.add(self.cook)
 
     def test_login_required(self):
-        response = self.client.get(reverse('restaurant:dish_list'))
+        response = self.client.get(reverse("restaurant:dish_list"))
         self.assertEqual(response.status_code, 302)
 
     def test_dish_list_view(self):
-        self.client.login(username='testcook', password='testpass123')
-        response = self.client.get(reverse('restaurant:dish_list'))
+        self.client.login(username="testcook", password="testpass123")
+        response = self.client.get(reverse("restaurant:dish_list"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'restaurant/dish_list.html')
-        self.assertContains(response, 'Test Dish')
+        self.assertTemplateUsed(response, "restaurant/dish_list.html")
+        self.assertContains(response, "Test Dish")
 
     def test_dish_create_view(self):
-        self.client.login(username='testcook', password='testpass123')
-        response = self.client.get(reverse('restaurant:dish_create'))
+        self.client.login(username="testcook", password="testpass123")
+        response = self.client.get(reverse("restaurant:dish_create"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'restaurant/dish_form.html')
+        self.assertTemplateUsed(response, "restaurant/dish_form.html")
 
     def test_dish_edit_view(self):
-        self.client.login(username='testcook', password='testpass123')
+        self.client.login(username="testcook", password="testpass123")
         response = self.client.get(
-            reverse('restaurant:dish_edit', kwargs={'pk': self.dish.pk})
+            reverse("restaurant:dish_edit", kwargs={"pk": self.dish.pk})
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'restaurant/dish_form.html')
+        self.assertTemplateUsed(response, "restaurant/dish_form.html")
 
     def test_register_view(self):
-        response = self.client.get(reverse('restaurant:register'))
+        response = self.client.get(reverse("restaurant:register"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'registration/register.html')
+        self.assertTemplateUsed(response, "registration/register.html")
