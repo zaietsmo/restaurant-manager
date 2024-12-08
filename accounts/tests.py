@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from .forms import CookCreationForm
 
+
 class AccountModelTests(TestCase):
     def setUp(self):
         self.cook = get_user_model().objects.create_user(
@@ -15,6 +16,7 @@ class AccountModelTests(TestCase):
 
     def test_cook_str(self):
         self.assertEqual(str(self.cook), "Test Cook")
+
 
 class AccountFormTests(TestCase):
     def test_cook_creation_form_valid(self):
@@ -38,7 +40,7 @@ class AccountFormTests(TestCase):
             "first_name": "New",
             "last_name": "Cook",
             "email": "cook@test.com",
-            "years_of_experience": -1,    # Invalid experience
+            "years_of_experience": -1,  # Invalid experience
         }
         form = CookCreationForm(data=form_data)
         self.assertFalse(form.is_valid())

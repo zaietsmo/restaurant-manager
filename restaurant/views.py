@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -64,3 +64,23 @@ class DishUpdateView(LoginRequiredMixin, UpdateView):
         response = super().form_valid(form)
         messages.success(self.request, "Dish updated successfully!")
         return response
+
+
+class DishDeleteView(LoginRequiredMixin, DeleteView):
+    model = Dish
+    template_name = "restaurant/dish_confirm_delete.html"
+    success_url = reverse_lazy("restaurant:dish_list")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Dish deleted successfully!")
+        return super().delete(request, *args, **kwargs)
+
+
+class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
+    model = DishType
+    template_name = "restaurant/dish_type_confirm_delete.html"
+    success_url = reverse_lazy("restaurant:dish_type_list")
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Dish type deleted successfully!")
+        return super().delete(request, *args, **kwargs)

@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
+
 class RegisterCookView(FormView):
     template_name = "registration/register.html"
     form_class = CookCreationForm

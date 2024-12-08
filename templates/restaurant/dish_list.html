@@ -20,11 +20,8 @@
           <li>{{ cook.get_full_name }}</li>
           {% endfor %}
         </ul>
-        <a
-          href="{% url 'restaurant:dish_edit' dish.pk %}"
-          class="btn btn-primary"
-          >Edit</a
-        >
+        <a href="{% url 'restaurant:dish_edit' dish.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'restaurant:dish_delete' dish.pk %}" class="btn btn-danger">Delete</a>
       </div>
     </div>
   </div>
