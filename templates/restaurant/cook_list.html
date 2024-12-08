@@ -1,24 +1,24 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h2>Cooks</h2>
 <div class="row">
-    {% for cook in cooks %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ cook.get_full_name }}</h5>
-                <p class="card-text">Experience: {{ cook.years_of_experience }} years</p>
-                <p class="card-text">Email: {{ cook.email }}</p>
-                <h6>Dishes:</h6>
-                <ul>
-                    {% for dish in cook.dishes.all %}
-                    <li>{{ dish.name }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+  {% for cook in cooks %}
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ cook.get_full_name }}</h5>
+        <p class="card-text">
+          Experience: {{ cook.years_of_experience }} years
+        </p>
+        <p class="card-text">Email: {{ cook.email }}</p>
+        <h6>Dishes:</h6>
+        <ul>
+          {% for dish in cook.dishes.all %}
+          <li>{{ dish.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
-{% endblock %} 
+{% endblock %}

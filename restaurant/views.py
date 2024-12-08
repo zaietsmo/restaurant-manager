@@ -1,28 +1,9 @@
-from django.views.generic import ListView, CreateView, UpdateView, FormView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.shortcuts import redirect
-from .models import Dish, DishType, Cook
-from .forms import DishForm, CookCreationForm, DishTypeForm
-
-
-class RegisterCookView(FormView):
-    template_name = "registration/register.html"
-    form_class = CookCreationForm
-    success_url = reverse_lazy("restaurant:dish_list")
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return super().form_valid(form)
-
-
-class CookListView(LoginRequiredMixin, ListView):
-    model = Cook
-    template_name = "restaurant/cook_list.html"
-    context_object_name = "cooks"
+from .models import Dish, DishType
+from .forms import DishForm, DishTypeForm
 
 
 class DishTypeListView(LoginRequiredMixin, ListView):

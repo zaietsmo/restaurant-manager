@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "accounts",
     "restaurant",
 ]
 
@@ -123,7 +124,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "restaurant.Cook"
+AUTH_USER_MODEL = "accounts.Cook"
 LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = "restaurant:login"
-LOGOUT_REDIRECT_URL = "restaurant:login"
+LOGIN_URL = "accounts:login"
+LOGOUT_REDIRECT_URL = "accounts:login"
