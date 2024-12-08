@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import Dish, DishType
 from .forms import DishForm, DishTypeForm
+from django.db.models import Q
 
 
 class DishTypeListView(LoginRequiredMixin, ListView):
@@ -40,6 +41,25 @@ class DishListView(LoginRequiredMixin, ListView):
     model = Dish
     template_name = "restaurant/dish_list.html"
     context_object_name = "dishes"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get("search", "")
+        dish_type = self.request.GET.get("dish_type", "")
+
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        if dish_type:
+            queryset = queryset.filter(dish_type__id=dish_type)
+
+        return queryset.select_related("dish_type").prefetch_related("cooks")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["dish_types"] = DishType.objects.all()
+        return context
 
 
 class DishCreateView(LoginRequiredMixin, CreateView):

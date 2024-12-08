@@ -57,7 +57,7 @@ class ViewTests(TestCase):
 
     def test_dish_list_view_requires_login(self):
         response = self.client.get(reverse("restaurant:dish_list"))
-        self.assertEqual(response.status_code, 302)  # Redirect to login
+        self.assertEqual(response.status_code, 302)
 
     def test_dish_list_view_logged_in(self):
         cook = get_user_model().objects.create_user(
