@@ -18,6 +18,9 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,36 +38,44 @@
             </li>
             {% endif %}
           </ul>
-          {% if user.is_authenticated %}
-          <form
-            method="post"
-            action="{% url 'accounts:logout' %}"
-            class="d-flex"
-          >
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-light">Logout</button>
-          </form>
-          {% else %}
           <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <span class="navbar-text me-3">
+                Welcome, {{ user.get_full_name }}!
+              </span>
+            </li>
+            <li class="nav-item">
+              <form
+                method="post"
+                action="{% url 'accounts:logout' %}"
+                class="d-flex"
+              >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-light">Logout</button>
+              </form>
+            </li>
+            {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
             </li>
+            {% endif %}
           </ul>
-          {% endif %}
         </div>
       </div>
     </nav>
 
     <div class="container mt-4">
       {% if messages %}
-          {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                  {{ message }}
-              </div>
-          {% endfor %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
       {% endif %}
       
       {% block content %}
