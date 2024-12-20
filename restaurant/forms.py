@@ -1,6 +1,7 @@
 from django import forms
-from .models import Dish, DishType
 from django.forms import SelectMultiple
+
+from .models import Dish, DishType
 
 
 class DishForm(forms.ModelForm):

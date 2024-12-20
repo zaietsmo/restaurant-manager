@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import FormView, ListView
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import FormView, ListView
+
 from .forms import CookCreationForm
 from .models import Cook
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 
 # Create your views here.
 

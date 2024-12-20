@@ -1,10 +1,11 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import Dish, DishType
-from .forms import DishForm, DishTypeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from .forms import DishForm, DishTypeForm
+from .models import Dish, DishType
 
 
 class DishTypeListView(LoginRequiredMixin, ListView):

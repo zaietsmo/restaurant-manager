@@ -1,9 +1,11 @@
-from django.test import TestCase, Client
-from django.urls import reverse
-from django.contrib.auth import get_user_model
-from .models import Dish, DishType
-from .forms import DishForm, DishTypeForm
 from decimal import Decimal
+
+from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
+from django.urls import reverse
+
+from .forms import DishForm, DishTypeForm
+from .models import Dish, DishType
 
 
 class ModelTests(TestCase):
