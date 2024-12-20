@@ -1,4 +1,5 @@
 from .base import *
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -14,4 +15,3 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
