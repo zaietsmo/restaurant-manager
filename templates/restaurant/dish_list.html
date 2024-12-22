@@ -39,7 +39,7 @@
           {% endfor %}
         </ul>
         <div class="mt-auto">
-          <a href="{% url 'restaurant:dish_edit' dish.pk %}" class="btn btn-primary me-2">Edit</a>
+          <a href="{% url 'restaurant:dish_update' dish.pk %}" class="btn btn-primary me-2">Edit</a>
           <a href="{% url 'restaurant:dish_delete' dish.pk %}" class="btn btn-danger">Delete</a>
         </div>
       </div>
