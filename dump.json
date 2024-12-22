@@ -1,0 +1,133 @@
+[
+{
+    "model": "accounts.cook",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$ba5uyoBu5XT61akvDxlpFu$YqB9yaYbKsyZxWq1JHwYByML2jdlonpIRYit4O0G8rQ=",
+        "last_login": "2024-12-08T22:50:42.217Z",
+        "is_superuser": true,
+        "username": "user",
+        "first_name": "Gordon",
+        "last_name": "Ramsey",
+        "email": "user@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-12-08T15:09:33.304Z",
+        "years_of_experience": 25,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.cook",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$LoGJWdszpZDU1nYBw246n7$eGprl98nqJch02n6jhcf960jOHdwlHbzgwTbeEozg7g=",
+        "last_login": "2024-12-08T19:03:25.774Z",
+        "is_superuser": false,
+        "username": "NewCook",
+        "first_name": "Pablo",
+        "last_name": "Picasso",
+        "email": "pablopicasso@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-12-08T19:03:25.545Z",
+        "years_of_experience": 18,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.cook",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$NcJXbOVmFqefIJwsMxGOFa$dIoayHHr+kSbO949nWgBg+LIXGosnvHEyE2BXwldCVU=",
+        "last_login": "2024-12-08T22:50:14.582Z",
+        "is_superuser": false,
+        "username": "evgeniy.klopotenko",
+        "first_name": "Evgeniy",
+        "last_name": "Klopotenko",
+        "email": "evgeniy.klopotenko@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-12-08T22:50:14.351Z",
+        "years_of_experience": 10,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "restaurant.dishtype",
+    "pk": 1,
+    "fields": {
+        "name": "Soup"
+    }
+},
+{
+    "model": "restaurant.dishtype",
+    "pk": 2,
+    "fields": {
+        "name": "Cake"
+    }
+},
+{
+    "model": "restaurant.dishtype",
+    "pk": 3,
+    "fields": {
+        "name": "Pasta"
+    }
+},
+{
+    "model": "restaurant.dish",
+    "pk": 3,
+    "fields": {
+        "name": "Borscht",
+        "description": "Borscht is a sour soup, made with meat stock, vegetables and seasonings, common in Eastern Europe and Northern Asia. In English, the word borscht is most often associated with the soup's variant of Ukrainian origin, made with red beetroots as one of the main ingredients, which give the dish its distinctive red color.",
+        "price": "10.00",
+        "dish_type": 1,
+        "cooks": [
+            2
+        ]
+    }
+},
+{
+    "model": "restaurant.dish",
+    "pk": 4,
+    "fields": {
+        "name": "Napoleon",
+        "description": "Layers and layers of flaky puff pastry and homemade vanilla pastry cream, covered with more pastry cream and puff pastry crumbs and decorated with fresh fruit. Elegant in its simplicity, this creamy cool dessert is summer at its best.",
+        "price": "6.00",
+        "dish_type": 2,
+        "cooks": [
+            1
+        ]
+    }
+},
+{
+    "model": "restaurant.dish",
+    "pk": 5,
+    "fields": {
+        "name": "Lasagna",
+        "description": "Lasagna, also known as lasagne, is a type of pasta, possibly one of the oldest types, made in very wide, flat sheets. In Italian cuisine it is made of stacked layers of pasta alternating with fillings such as ragu, bechamel sauce, vegetables, cheeses, and seasonings and spices. The dish may be topped with grated cheese, which melts during baking.",
+        "price": "18.25",
+        "dish_type": 3,
+        "cooks": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "restaurant.dish",
+    "pk": 6,
+    "fields": {
+        "name": "Carbonara",
+        "description": "Carbonara is a pasta dish made with fatty cured pork, hard cheese, eggs, salt, and black pepper. It is typical of the Lazio region of Italy. The dish took its modern form and name in the middle of the 20th century. The cheese is usually pecorino romano. Some variations use Parmesan, Grana Padano, or a combination of cheeses. Spaghetti is the most common pasta, but rigatoni or bucatini are also used.",
+        "price": "13.99",
+        "dish_type": 3,
+        "cooks": [
+            3
+        ]
+    }
+}
+]
