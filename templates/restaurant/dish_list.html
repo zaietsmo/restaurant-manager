@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Dishes</h2>
+  <a href="{% url 'restaurant:dish_create' %}" class="btn btn-primary">Add New Dish</a>
+</div>
+
+<form method="get" class="row g-3 mb-4">
+  <div class="col-md-6">
+    <input type="text" name="search" class="form-control" placeholder="Search Dishes" value="{{ request.GET.search }}">
+  </div>
+  <div class="col-md-4">
+    <select name="dish_type" class="form-select">
+      <option value="">All Dish Types</option>
+      {% for type in dish_types %}
+        <option value="{{ type.id }}" {% if request.GET.dish_type == type.id|stringformat:"s" %}selected{% endif %}>{{ type.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-secondary w-100">Search</button>
+  </div>
+</form>
+
+<div class="row">
+  {% for dish in dishes %}
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ dish.name }}</h5>
+        <p class="card-text">{{ dish.description }}</p>
+        <p class="card-text">
+          <small class="text-muted">Type: {{ dish.dish_type }}</small>
+        </p>
+        <p class="card-text">Price: ${{ dish.price }}</p>
+        <h6>Cooks:</h6>
+        <ul>
+          {% for cook in dish.cooks.all %}
+          <li>{{ cook.get_full_name }}</li>
+          {% endfor %}
+        </ul>
+        <div class="mt-auto">
+          <a href="{% url 'restaurant:dish_update' dish.pk %}" class="btn btn-primary me-2">Edit</a>
+          <a href="{% url 'restaurant:dish_delete' dish.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>No dishes found.</p>
+  {% endfor %}
+</div>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.dish_type %}&dish_type={{ request.GET.dish_type }}{% endif %}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <span class="page-link">&laquo;</span>
+    </li>
+    {% endif %}
+
+    {% for num in paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <li class="page-item"><a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.dish_type %}&dish_type={{ request.GET.dish_type }}{% endif %}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.dish_type %}&dish_type={{ request.GET.dish_type }}{% endif %}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <span class="page-link">&raquo;</span>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}
